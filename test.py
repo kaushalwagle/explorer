@@ -12,6 +12,45 @@ pygame.display.set_caption("Pygame Demonstration")
 
 GPIO.setmode(GPIO.BCM)
 
+def GPIO_setup():
+    GPIO.setup(5, GPIO.OUT)
+    GPIO.setup(6, GPIO.OUT)
+    GPIO.setup(13, GPIO.OUT)
+    GPIO.setup(19, GPIO.OUT)
+
+def forward():
+    GPIO.output(5, GPIO.HIGH)
+    GPIO.output(6, GPIO.LOW)
+    GPIO.output(13, GPIO.HIGH)
+    GPIO.output(19, GPIO.LOW)
+
+def turn_right():
+    GPIO.output(5, GPIO.HIGH)
+    GPIO.output(6, GPIO.LOW)
+    GPIO.output(13, GPIO.LOW)
+    GPIO.output(19, GPIO.HIGH)
+
+def turn_left():
+    GPIO.output(5, GPIO.LOW)
+    GPIO.output(6, GPIO.HIGH)
+    GPIO.output(13, GPIO.HIGH)
+    GPIO.output(19, GPIO.LOW)
+    
+
+def backward():
+    GPIO.output(5, GPIO.LOW)
+    GPIO.output(6, GPIO.HIGH)
+    GPIO.output(13, GPIO.LOW)
+    GPIO.output(19, GPIO.HIGH) 
+
+def stop():
+    GPIO.output(5, GPIO.LOW)
+    GPIO.output(6, GPIO.LOW)
+    GPIO.output(13, GPIO.LOW)
+    GPIO.output(19, GPIO.LOW)
+
+
+
 
 #GPIO.output(5, GPIO.LOW)
 #GPIO.output(6, GPIO.LOW)
@@ -20,11 +59,7 @@ GPIO.setmode(GPIO.BCM)
 mainloop=True
 while mainloop:
 
-    GPIO.setup(5, GPIO.OUT)
-    GPIO.setup(6, GPIO.OUT)
-    GPIO.setup(13, GPIO.OUT)
-    GPIO.setup(19, GPIO.OUT)
-    
+    GPIO_setup()
     for event in pygame.event.get():
 
         if event.type == pygame.QUIT:
@@ -34,35 +69,16 @@ while mainloop:
             print(pygame.key.name(event.key))
         
             if pygame.key.name(event.key) == 'w':
-                GPIO.output(5, GPIO.HIGH)
-                GPIO.output(6, GPIO.LOW)
-                GPIO.output(13, GPIO.HIGH)
-                GPIO.output(19, GPIO.LOW)
-                    
+                forward()
             if pygame.key.name(event.key) == 's':
-                GPIO.output(5, GPIO.LOW)
-                GPIO.output(6, GPIO.HIGH)
-                GPIO.output(13, GPIO.LOW)
-                GPIO.output(19, GPIO.HIGH)
-                
+                backward()
             if pygame.key.name(event.key) == 'a':
-                GPIO.output(5, GPIO.LOW)
-                GPIO.output(6, GPIO.HIGH)
-                GPIO.output(13, GPIO.HIGH)
-                GPIO.output(19, GPIO.LOW)
-                    
+                turn_left()
             if pygame.key.name(event.key) == 'd':
-                GPIO.output(5, GPIO.HIGH)
-                GPIO.output(6, GPIO.LOW)
-                GPIO.output(13, GPIO.LOW)
-                GPIO.output(19, GPIO.HIGH)
+                turn_right()
     
         if event.type == pygame.KEYUP:
-            GPIO.output(5, GPIO.LOW)
-            GPIO.output(6, GPIO.LOW)
-            GPIO.output(13, GPIO.LOW)
-            GPIO.output(19, GPIO.LOW)
-
+            stop()
     
  #   GPIO.cleanup(6)
   #  GPIO.cleanup(5)
